@@ -10,7 +10,7 @@
 #include <zephyr/kernel.h>
 
 #include <zephyr/logging/log.h>
-LOG_MODULE_REGISTER(sensor, LOG_LEVEL_INF);
+LOG_MODULE_REGISTER(sensor, LOG_LEVEL_DBG);
 
 #define SENSOR_STACK_SIZE 500
 #define SENSOR_PRIORITY -5
@@ -45,7 +45,7 @@ void sensor_thread(void *data, void *d1, void *d2)
     while (1)
     {
         k_sleep(K_SECONDS(2));
-        LOG_INF("sensor thread is looping...");
+        LOG_DBG("sensor thread is looping...");
     }
     
     LOG_INF("sensor_thread terminate");
