@@ -13,7 +13,8 @@ LOG_MODULE_REGISTER(sensor, LOG_LEVEL_INF);
 void read_sensor(void *data, void *d1, void *d2)
 {
     LOG_INF("read_sensor start");
-    k_sleep(K_SECONDS(1));
-    LOG_INF("read_sensor end");
+    
+    LOG_INF("read_sensor read data");
+    k_sleep(K_SECONDS(100));
 }
 

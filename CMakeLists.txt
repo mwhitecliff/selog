@@ -5,4 +5,5 @@ project(selog)
 include_directories(inc)
 target_sources(app PRIVATE 
                     src/main.c
-                    src/sensor.c)
+                    src/sensor.c
+                    src/user_shell.c)
