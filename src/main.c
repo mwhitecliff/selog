@@ -38,5 +38,7 @@ int main (void)
         return 1;
     }
 
+    k_thread_name_set(sensor_tid, "sensor");
+
     return 0;
 }
