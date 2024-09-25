@@ -12,6 +12,9 @@
 #include <zephyr/logging/log.h>
 LOG_MODULE_REGISTER(sensor, LOG_LEVEL_DBG);
 
+#include <zephyr/device.h>
+#include <zephyr/drivers/sensor.h>
+
 #define SENSOR_STACK_SIZE 500
 #define SENSOR_PRIORITY -5
 
@@ -41,12 +44,23 @@ void sensor_create(void)
 
 void sensor_thread(void *data, void *d1, void *d2)
 {
+    const struct device *bme = DEVICE_DT_GET(DT_NODELABEL(pres1));
+    struct sensor_value temp, pres, humi;
+
     LOG_INF("sensor_thread start");
 
     while (1)
     {
         k_sleep(K_SECONDS(2));
-        LOG_DBG("sensor thread is looping...");
+        sensor_sample_fetch(bme);
+        
+        sensor_channel_get(bme, SENSOR_CHAN_AMBIENT_TEMP, &temp);
+        sensor_channel_get(bme, SENSOR_CHAN_PRESS, &pres);
+        sensor_channel_get(bme, SENSOR_CHAN_HUMIDITY, &humi);
+        
+        LOG_DBG("%d.%02d °C", temp.val1, temp.val2/10000);
+        LOG_DBG("%d.%02d %%", humi.val1, humi.val2/10000);
+        LOG_DBG("%d.%02d kPa", pres.val1, pres.val2/10000);
     }
     
     LOG_INF("sensor_thread terminate");
