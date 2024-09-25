@@ -32,10 +32,11 @@ void sensor_create(void)
     if (sensor_tid != &sensor_thread_ctl)
     {
         LOG_ERR("Error while creating thread: %d", (int)sensor_tid);
-        return 1;
     }
-
-    k_thread_name_set(sensor_tid, "sensor");
+    else
+    {
+        k_thread_name_set(sensor_tid, "sensor");
+    }
 }
 
 void sensor_thread(void *data, void *d1, void *d2)
